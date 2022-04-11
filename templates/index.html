@@ -1,3 +1,9 @@
 <!DOCTYPE html>
 <h1>ブログ</h1>
 <a href="home.html" class="btn"><h1>自分の記事へ</h1></a>
+<div>
+    <p>他アカウントの記事一覧</p>
+    {% for i in user_list %}
+        <a href="{% url 'home_page' user.email %}">{{ user.email }}</a>
+    {% endfor %}
+</div>

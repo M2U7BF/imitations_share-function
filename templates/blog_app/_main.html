@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+<body>
+    <header>
+        <div>
+            <!-- ログインユーザーの名前 -->
+            <p>アカウント名：{{ user.email }}</p>
+        </div>
+    </header>
+    <div id="main_content">
+        {% for i in object_list %}
+            {% if このページの作成者名 == article.posted_by %}
+            <div class="article_contents posted_by">
+                {{ article.posted_by }}
+            </div>
+            <div class="article_contents posted_text">
+                {{ article.posted_text }}
+            </div>
+            <div class="article_contents posted_at">
+                {{ article.posted_at }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <footer></footer>
+</body>
