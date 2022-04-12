@@ -1,5 +1,4 @@
 from email.policy import default
-from tkinter import CASCADE
 from django.db import models
 from django.utils import timezone
 # (https://office54.net/python/django/model-app-import)
