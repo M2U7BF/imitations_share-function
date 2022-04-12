@@ -74,6 +74,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
+
     username = models.CharField(_("username"), max_length=50, validators=[username_validator], blank=True)
     email = models.EmailField(
         verbose_name='email address',
