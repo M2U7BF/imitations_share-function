@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
+import uuid
 
 # Create your models here.
 """
@@ -74,7 +75,8 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
-
+    #(https://self-methods.com/django-model-uuid-id/)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(_("username"), max_length=50, validators=[username_validator], blank=True)
     email = models.EmailField(
         verbose_name='email address',

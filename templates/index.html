@@ -4,6 +4,6 @@
 <div>
     <p>他アカウントの記事一覧</p>
     {% for i in user_list %}
-        <a href="{% url 'home_page' user.email %}">{{ user.email }}</a>
+        <a href="{% url 'home_page' user.pk %}">{{ user.email }}</a>
     {% endfor %}
 </div>
