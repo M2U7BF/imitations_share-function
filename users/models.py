@@ -77,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     #(https://self-methods.com/django-model-uuid-id/)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = models.CharField(_("username"), max_length=50, validators=[username_validator], blank=True)
+    username = models.CharField(_("username"), max_length=50, validators=[username_validator], blank=False)
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -135,4 +135,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # 管理画面の表示
     def __str__(self):
-        return self.user_name
+        return self.username
