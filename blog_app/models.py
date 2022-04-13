@@ -18,4 +18,4 @@ class ArticleModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     def __str__(self):
-        return self.posted_text, self.posted_by
+        return self.posted_text[:10]

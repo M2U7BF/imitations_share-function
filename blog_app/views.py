@@ -94,7 +94,7 @@ class index_view(TemplateView):
         return ctxt
 
 class ArticleCreateView(CreateView):
-    template_name = 'article_create.html'
+    template_name = 'create_article.html'
     model = ArticleModel
     fields = ('posted_text','posted_by')
 
@@ -102,15 +102,6 @@ class ArticleCreateView(CreateView):
     # (https://torajirousan.hatenadiary.jp/entry/2018/08/31/023519)
     def get_success_url(self):
         return reverse_lazy("my_page",kwargs={"userid":self.kwargs["userid"]} )
-
-    # コメント投稿画面に投稿先を表示
-    def get_context_data(self,**kwargs):
-        ctxt = super().get_context_data()
-        ctxt["user_list"] = User.objects.all()
-        ## pkを元にオブジェクト取得(https://yaruki-strong-zero.hatenablog.jp/entry/django_model_lookup)
-        # pkを元にオブジェクト取得2(https://k-mawa.hateblo.jp/entry/2017/10/31/235640)
-        ctxt["post"] = User.objects.get(id=self.kwargs['userid'])
-        return ctxt
     
     def get_form(self):
         form = super(ArticleCreateView, self).get_form()
@@ -120,4 +111,15 @@ class ArticleCreateView(CreateView):
         return form
 
 class UserCreateView(CreateView):
-    pass
+    template_name = 'create_user.html'
+    model = User
+    fields = ('username','email')
+
+    # ! 本来ならばログイン画面に遷移
+    success_url = reverse_lazy('index') # 投稿完了時の遷移先
+
+    def get_form(self):
+        form = super(UserCreateView, self).get_form()
+        form.fields['username'].label = 'ユーザーネーム'
+        form.fields['email'].label = 'メールアドレス'
+        return form
