@@ -5,6 +5,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.utils.translation import gettext as _
 from django.urls import reverse_lazy,reverse
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from . import forms
 
 class MyPageView(DetailView):
     template_name = 'my_home.html'
@@ -123,3 +126,11 @@ class UserCreateView(CreateView):
         form.fields['username'].label = 'ユーザーネーム'
         form.fields['email'].label = 'メールアドレス'
         return form
+
+class MyLoginView(LoginView):
+    form_class = forms.LoginForm
+    template_name = "login.html"
+    
+
+class MyLogoutView(LoginRequiredMixin, LogoutView):
+    template_name = "logout.html"

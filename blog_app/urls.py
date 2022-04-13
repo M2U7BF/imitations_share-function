@@ -7,4 +7,6 @@ urlpatterns = [
     path('home_page/mypage/<userid>', views.MyPageView.as_view(), name='my_page'),
     path('create_article/<userid>', views.ArticleCreateView.as_view(), name='create_article'),
     path('create_user/', views.UserCreateView.as_view(), name='create_user'),
+    path('login/', views.MyLoginView.as_view(), name="login"),
+    path('logout/', views.MyLogoutView.as_view(), name="logout"),
 ]
