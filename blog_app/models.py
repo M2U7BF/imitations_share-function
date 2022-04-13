@@ -16,3 +16,6 @@ class ArticleModel(models.Model):
     posted_at = models.DateTimeField(default=timezone.now(), blank=True)
     #(https://self-methods.com/django-model-uuid-id/)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return self.posted_text, self.posted_by

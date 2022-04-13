@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% block main %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="field">
+        {{ form.posted_text }}
+    </div>
+    <div class="field">
+        {{ form.posted_by.label_tag }}
+        {{ form.posted_by }}
+    </div>
+    <input type="submit" value="投稿" />
+    <!--<input type="text" name="コメントの本文">-->
+    <!--<input type="submit" value="投稿" />-->
+    <!--<button type="submit" class="">コメント投稿</button>-->
+</form>
+{% endblock %}

@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, CreateView
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.utils.translation import gettext as _
+from django.urls import reverse_lazy,reverse
 
 class MyPageView(DetailView):
     template_name = 'my_home.html'
@@ -91,3 +92,32 @@ class index_view(TemplateView):
         ctxt = super().get_context_data()
         ctxt["user_list"] = User.objects.all()
         return ctxt
+
+class ArticleCreateView(CreateView):
+    template_name = 'article_create.html'
+    model = ArticleModel
+    fields = ('posted_text','posted_by')
+
+    # オーバーライド
+    # (https://torajirousan.hatenadiary.jp/entry/2018/08/31/023519)
+    def get_success_url(self):
+        return reverse_lazy("my_page",kwargs={"userid":self.kwargs["userid"]} )
+
+    # コメント投稿画面に投稿先を表示
+    def get_context_data(self,**kwargs):
+        ctxt = super().get_context_data()
+        ctxt["user_list"] = User.objects.all()
+        ## pkを元にオブジェクト取得(https://yaruki-strong-zero.hatenablog.jp/entry/django_model_lookup)
+        # pkを元にオブジェクト取得2(https://k-mawa.hateblo.jp/entry/2017/10/31/235640)
+        ctxt["post"] = User.objects.get(id=self.kwargs['userid'])
+        return ctxt
+    
+    def get_form(self):
+        form = super(ArticleCreateView, self).get_form()
+        form.fields['posted_by'].label = '投稿者'
+        form.initial['posted_by'] = self.kwargs['userid'] # フィールドの初期値の設定(https://k-mawa.hateblo.jp/entry/2017/10/31/235640)
+        form.fields['posted_text'].required = True
+        return form
+
+class UserCreateView(CreateView):
+    pass
