@@ -6,9 +6,6 @@
     </div>
     {% for i in object_list %}
         {% if page_owner.id == i.posted_by.id %}
-        <div class="article_contents posted_by">
-            投稿者：{{ i.posted_by }}
-        </div>
         <div class="article_contents posted_text">
             本文：{{ i.posted_text }}
         </div>

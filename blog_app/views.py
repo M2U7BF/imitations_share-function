@@ -8,6 +8,10 @@ from django.urls import reverse_lazy,reverse
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model 
+
+User = get_user_model()
 
 class MyPageView(DetailView):
     template_name = 'my_home.html'
@@ -115,22 +119,14 @@ class ArticleCreateView(CreateView):
 
 class UserCreateView(CreateView):
     template_name = 'create_user.html'
-    model = User
-    fields = ('username','email')
+    form_class = forms.SignUpForm
 
     # ! 本来ならばログイン画面に遷移
     success_url = reverse_lazy('index') # 投稿完了時の遷移先
 
-    def get_form(self):
-        form = super(UserCreateView, self).get_form()
-        form.fields['username'].label = 'ユーザーネーム'
-        form.fields['email'].label = 'メールアドレス'
-        return form
-
 class MyLoginView(LoginView):
     form_class = forms.LoginForm
     template_name = "login.html"
-    
 
 class MyLogoutView(LoginRequiredMixin, LogoutView):
     template_name = "logout.html"

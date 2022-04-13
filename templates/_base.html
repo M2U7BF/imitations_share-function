@@ -1,6 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <head>
-
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% block title %}
+    <title></title>
+    {% endblock %}
 </head>
 <body>
     <header>

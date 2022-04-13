@@ -1,16 +1,10 @@
 {% extends '_base.html' %}
 
 {% block main %}
+<p>新規ユーザーの作成</p>
 <form action="" method="POST">
     {% csrf_token %}
-    <div class="field">
-        {{ form.username.label_tag }}
-        {{ form.username }}
-    </div>
-    <div class="field">
-        {{ form.email.label_tag }}
-        {{ form.email }}
-    </div>
-    <input type="submit" value="新規ユーザー作成" />
+    {{ form.as_p }}
+    <button type="submit">作成</button>
 </form>
 {% endblock %}
