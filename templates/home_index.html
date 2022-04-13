@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% block header %}
+<div></div>
+{% endblock %}
+
+{% block main %}
+<h1>ようこそ</h1>
+<p>サインアップでアカウントを作成できます。</p>
+<p>ログインすると、アカウントごとのページを閲覧したり、記事の投稿ができます。</p>
+<br>
+<p>アカウントをお持ちの方：<a href="{% url 'login' %}">ログイン</a></p>
+<p>アカウントをお持ちでない方：<a href="{% url 'create_user' %}">サインアップ</a></p>
+{% endblock %}
+
+{% block footer %}
+<div></div>
+{% endblock %}

@@ -8,15 +8,24 @@
     {% endblock %}
 </head>
 <body>
+    {% block header %}
     <header>
         {% include '_header.html' %}
     </header>
+    {% endblock %}
     <div id="main_content">
     {% block main%}
         コンテンツがありません。
     {% endblock %}
     </div>
+    {% block footer %}
     <footer>
-        {% include '_footer.html' %}
+        {% block url_index %}
+        <a href="{% url 'index' %}">ホームに戻る</a>
+        {% endblock %}
+        <a href="{% url 'logout' %}">ログアウト</a>
+        <a href="{% url 'login' %}">ログイン</a>
+        <a href="{% url 'home_index' %}">トップ</a>
     </footer>
+    {% endblock %}
 </body>

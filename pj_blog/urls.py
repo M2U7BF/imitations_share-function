@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from blog_app.views import *
 
-# index_view = TemplateView.as_view(template_name="index.html")
+home_index_view = TemplateView.as_view(template_name="home_index.html")
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/',include('blog_app.urls')),
-    path('', index_view.as_view(), name='index'),
+    path('', home_index_view, name='home_index'),
 ]

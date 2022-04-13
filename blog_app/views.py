@@ -1,14 +1,12 @@
-from django.shortcuts import render
 from django.views.generic import DetailView, TemplateView, CreateView
 from .models import *
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import Http404
 from django.utils.translation import gettext as _
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model 
 
 User = get_user_model()
