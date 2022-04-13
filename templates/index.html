@@ -6,7 +6,11 @@
     <p>他アカウントの記事一覧</p>
     <div>
     {% for i in user_list %}
+        <!-- 本人の表示を特別にする(テンプレート版) -->
+        {% if i.id == user.id %}
+        {% else %}
         <a href="{% url 'home_page' i.pk %}">{{ i.email }}</a><br>
+        {% endif %}
     {% endfor %}
     </div>
 </div>
