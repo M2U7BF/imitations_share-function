@@ -8,6 +8,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from django.contrib.auth import get_user_model 
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -89,6 +91,10 @@ class HomePageView(DetailView):
                 % {"verbose_name": queryset.model._meta.verbose_name}
             )
         return objs
+
+class DetailView(DetailView):
+    template_name= "_detail.html"
+    model = ArticleModel
 
 class index_view(TemplateView):
     template_name="index.html"

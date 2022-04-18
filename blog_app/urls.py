@@ -10,4 +10,5 @@ urlpatterns = [
     path('create_user/', views.UserCreateView.as_view(), name='create_user'),
     path('login/', views.MyLoginView.as_view(), name="login"),
     path('logout/', views.MyLogoutView.as_view(), name="logout"),
+    path('detail/<pk>',views.DetailView.as_view(), name="detail"),
 ]

@@ -8,6 +8,28 @@
   </div>
 
 
+<script>
+$('#ajax-number').on('submit', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        'url': '{% url "blog:ajax_number" %}',
+        'type': 'POST',
+        'data': {
+            'number1': $('#number1').val(),
+            'number2': $('#number2').val(),
+        },
+        'dataType': 'json'
+    })
+    .done(function(response){
+        $('.result').prepend('<p>引き算結果：' + response.minus + '</p>');
+        $('.result').prepend('<p>足し算結果：' + response.plus + '</p>');
+    });
+});
+</script>
+
+
+
   <script>
     // api_follow関数が設定されたaタグがクリックされたら、非同期通信でfollowのカウントを1増やし画面に結果を反映する
 function api_follow_{{ user.id}}() {
