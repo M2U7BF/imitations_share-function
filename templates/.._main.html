@@ -25,30 +25,24 @@
 <br><br>
 {% endif %}
 
-<script>
-    let btn = document.getElementById('btn_{{ i.pk }}');
-    btn.addEventListener('click', function (e) {
-        copy_to_clipboard('ここの内容をコピーします。');
-    });
-
-    function copy_to_clipboard(value) {
-        if (navigator.clipboard) {
-            let copyText = value;
-            navigator.clipboard.writeText(copyText).then(function () {
-                alert('コピーしました。');
-            });
-        } else {
-            alert('対応していません。');
-        }
-    }
-
-</script>
-
-
 {% endfor %}
 <!-- 投稿がありませんの表示 -->
 
+<script>
+    function copyToClipboard(html_id) {
+        // コピー対象をJavaScript上で変数として定義する
+        let copyTarget = document.getElementById(html_id);
 
+        // コピー対象のテキストを選択する
+        copyTarget.select();
 
+        // 選択しているテキストをクリップボードにコピーする
+        document.execCommand("copy");
+
+        // コピーをお知らせする
+        alert("URLをクリップボードへコピーしました、\r\nというメッセージを表示しました!\r\n" + copyTarget.value);
+    }
+</script>
+<!-- execCommandは非推奨になっている -->
 
 {% endblock %}

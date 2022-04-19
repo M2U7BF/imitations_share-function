@@ -1,48 +1,62 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block main %}
 <div>
     <p>このページの作成者名: {{ page_owner.email }}</p>
 </div>
+<script>
+    var btn = document.getElementById('btn');
+    var url = 'urlがありません'
+</script>
 {% for i in object_list %}
 <a href="{% url 'detail' i.pk %}">
     {% if page_owner.id == i.posted_by.id %}
     <div class="article_contents posted_by">
         投稿者：{{ i.posted_by }}
     </div>
+    
     <div class="article_contents posted_text">
+    {% if i.posted_text|length >= 50 %}
+        本文：{{ i.posted_text | slice:":50" }}...
+    {% else %}
         本文：{{ i.posted_text }}
+    {% endif %}
     </div>
     <div class="article_contents posted_at">
         投稿日：{{ i.posted_at }}
     </div>
 </a>
 
-<p style="display: none;">コピーするURL :<input id="copyTarget_{{ i.pk }}" type="text"
-        value="http://127.0.0.1:8000{% url 'detail' i.pk %}">
-</p>
-<button id="btn_{{ i.pk }}" type="button" onclick="copyToClipboard('copyTarget_{{ i.pk }}')">Copy URL</button>
+<a id="btn_{{ i.pk }}" style="float: right;">《Copy URL》</a>
 <br><br>
 {% endif %}
-
-{% endfor %}
-<!-- 投稿がありませんの表示 -->
-
 <script>
-    function copyToClipboard(html_id) {
-        // コピー対象をJavaScript上で変数として定義する
-        let copyTarget = document.getElementById(html_id);
 
-        // コピー対象のテキストを選択する
-        copyTarget.select();
+    // 変数の更新ができなくならないようにする
+btn = document.getElementById('btn_{{ i.pk }}');
+url = 'http://127.0.0.1:8000{% url "detail" i.pk %}'
 
-        // 選択しているテキストをクリップボードにコピーする
-        document.execCommand("copy");
-
-        // コピーをお知らせする
-        alert("URLをクリップボードへコピーしました、\r\nというメッセージを表示しました!\r\n" + copyTarget.value);
-    }
+btn.addEventListener('click', function(e) {
+    copy_to_clipboard(url);
+});
 </script>
 
+{% endfor %}
 
+
+<!-- (https://cly7796.net/blog/javascript/copy-to-clipboard/) -->
+<script>
+
+function copy_to_clipboard(value) {
+	if(navigator.clipboard) {
+		var copyText = value;
+		navigator.clipboard.writeText(copyText).then(function() {
+			alert('クリップボードへコピーしました。\r\n\r\n' + value);
+		});
+	} else {
+		alert('対応していません。');
+	}
+}
+</script>
 {% endblock %}
